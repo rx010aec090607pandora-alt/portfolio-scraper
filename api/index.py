@@ -5,12 +5,18 @@ import time
 import random
 from typing import List
 from pydantic import BaseModel
+from fastapi.responses import RedirectResponse
 
 app = FastAPI(
     title="B2B Job Scraper API",
     description="A safe, polite, and robust scraping API example for portfolio.",
     version="1.0.0"
 )
+
+@app.get("/")
+def redirect_root():
+    # Vercelのルーティングの都合で `/` がAPIに流れてきた場合、明示的に静的ファイルへリダイレクトします
+    return RedirectResponse(url="/index.html")
 
 # レスポンスのデータモデル定義
 class JobData(BaseModel):
